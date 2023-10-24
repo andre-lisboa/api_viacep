@@ -1,5 +1,5 @@
 #posiciona {
-    position:fixed; /* posição absoluta ao elemento pai, neste caso o BODY */
+      position:fixed; /* posição absoluta ao elemento pai, neste caso o BODY */
     /* Posiciona no meio, tanto em relação a esquerda como ao topo */
     left: 50%; 
     top: 50%;
@@ -18,3 +18,4 @@
     border: 1px solid grey;
     border-radius: 20px;
     box-shadow: 3px 3px grey;
+}
