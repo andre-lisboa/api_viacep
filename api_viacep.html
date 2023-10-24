@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Consumindo API VIACEP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <div>
+        <img src="/imagem/pexels-lara-jameson-8828329.jpg" class="img-fluid" alt="...">
+        <div id="posiciona">
+            <h1>Consulta Endereço ViaCEP</h1>
+            <br><br>
+            <label>Digite seu CEP: </label>
+            <br><br>
+            <input type="number"  class="form-control" placeholder="Digite aqui seu CEP" id="cep">
+            <br>
+            <button onclick="consultaEndereco()" type="button" class="btn btn-warning">Consultar</button>
+            <div id="resultado">
+                <br><br>
+                <p>Seu Resultado Aqui</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function consultaEndereco(){
+            let cep = document.querySelector('#cep').value;
+            
+            if (cep.length !== 8){
+                alert(`CEP Inválido`);
+                return;
+            }
+   
+            let url = `https://viacep.com.br/ws/${cep}/json/`;
+            
+            fetch(url).then(function(response){
+                response.json().then(mostrarEndereco);
+                    //console.log(data) - Não precisa de toda essa estrutura. No then passo o parametro (mostrarEndereco) 
+                    //mostrarEndereco(data);
+                
+            });
+        }
+
+        function mostrarEndereco(dados){
+            let resultado = document.querySelector(`#resultado`);
+            if (dados.erro){
+                resultado.innerHTML = "Não possivel localizar endereço!"
+            }else{
+                resultado.innerHTML = `<p>Endereço: ${dados.logradouro}</p>
+                                       <p>Complemento: ${dados.complemento}</p>
+                                       <p>Bairro: ${dados.bairro}</p>
+                                       <p>Cidade: ${dados.localidade} - ${dados.uf}</p>`
+            }                       
+        }
+    </script>
+  </body>
+</html>
